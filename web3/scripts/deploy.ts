@@ -4,7 +4,7 @@ async function main() {
   const EventCreation = await ethers.getContractFactory("SwiggEventManager");
   const contract = await EventCreation.deploy();
 
-  console.log("Events Contract deployed to:", contract);
+  console.log("Events Contract deployed to:", contract.getAddress());
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -138,3 +138,9 @@ You need a database to save user data and enable the following features:
 - Generating a unique ticket image or ticket URL after signing in with GitHub. If no DB is set up, each ticket image or URL will show generic data.
 
 Environment variables determine which database to use. See [lib/db-api.ts](https://github.com/ogiste/swigg/blob/main/lib/db-api.ts) for details and `.env.local.example` for all environment variables.
+
+
+### ***Events Manager Smart Contract
+
+
+[Event Manager Smart Contract](https://sepolia-blockscout.scroll.io/address/0x86A21436887050432159153E00d8bA8674aD6576/contracts#address-tabs)

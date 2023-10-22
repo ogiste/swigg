@@ -8,13 +8,14 @@ console.log('priv key - ', process.env.WEB3_PRIV_KEY )
 const privKey = process.env.WEB3_PRIV_KEY || ''
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.2",
+  solidity: "0.8.19",
   networks: {
-    optimism: {
-      url: "https://optimism-goerli.publicnode.com", // Replace with Optimism testnet RPC URL
-      accounts: [privKey], // Replace with your private key
-      gasPrice: 0, // Optimism currently uses a gas price of 0
-      // ovm: true // This sets the network as using the OVM and ensure contract will be compiled against that
+    scroll: {
+      url: "https://sepolia-rpc.scroll.io/",
+      chainId: 534351,
+      gasPrice: 20000000000, // Adjust the gas price accordingly
+      accounts: [privKey],
+      gas: "auto",
     },
   },
 };

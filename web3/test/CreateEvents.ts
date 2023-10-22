@@ -12,6 +12,7 @@ describe("SwiggEventManager", function () {
     // Deploy the SwiggEventManager contract before each test
     const SwiggEventManager = await ethers.getContractFactory("SwiggEventManager");
     swiggEventManager = await SwiggEventManager.deploy();
+    console.log(swiggEventManager)
     await swiggEventManager.deployed();
 
     // Get signers from ethers provider
