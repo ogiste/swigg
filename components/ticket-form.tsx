@@ -165,7 +165,7 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
       }}
     >
       <div className={cn(formStyles['form-row'], ticketFormStyles['form-row'])}>
-        <div className={cn(formStyles['github-wrapper'])}>
+        {/* <div className={cn(formStyles['github-wrapper'])}>
           <button
             type="submit"
             className={cn(
@@ -189,12 +189,12 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
           >
             <div className={ticketFormStyles.generateWithGithub}>
               <span className={ticketFormStyles.githubIcon}>
-                {/* <GithubIcon color="#fff" size={24} /> */}
+               <GithubIcon color="#fff" size={24} />
               </span>
               {formState === 'loading' ? (
                 <LoadingDots size={4} />
               ) : (
-                username || 'Generate with Worldcoin'
+                username || 'Generate with Github'
               )}
             </div>
             {username ? (
@@ -220,8 +220,9 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
               </>
             )}
           </p>
-        </div>
-        <div className={formStyles['or-divider']}>OR</div>
+        </div> */}
+        {/* <div className={formStyles['or-divider']}>OR</div> */}
+
         <a
           href="/stage/a"
           className={cn(

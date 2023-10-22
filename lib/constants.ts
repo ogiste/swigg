@@ -17,7 +17,7 @@
 export const SITE_URL = 'https://dreamscapemastermind.com';
 export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'og1ste';
-export const BRAND_NAME = 'SwiggTickets';
+export const BRAND_NAME = 'Swigg';
 export const SITE_NAME_MULTILINE = ['DM', 'Swigg Community Events'];
 export const SITE_NAME = 'Swigg';
 export const META_DESCRIPTION =
