@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const EventCreation = await ethers.getContractFactory("SwiggEvent");
+  const EventCreation = await ethers.getContractFactory("SwiggEventManager");
   const contract = await EventCreation.deploy();
 
   console.log("Events Contract deployed to:", contract);

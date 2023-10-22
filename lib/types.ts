@@ -89,11 +89,25 @@ export type Job = {
 export type ConfUser = {
   id?: string;
   email?: string;
+  userAddress?: string;
   ticketNumber?: number | null;
   name?: string | null;
   username?: string | null;
   createdAt?: number | null;
 };
+
+export interface SwiggEvent {
+  eventId?: string;
+  creatorAddress?: string;
+  name?: string;
+  description?: string;
+  date?: string;
+  startTime?: string;
+  endTime?: string;
+  capacity?: number;
+  venue?: string;
+  tokens?: string[];
+}
 
 export type GitHubOAuthData =
   | {

@@ -16,7 +16,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { nanoid } from 'nanoid';
-import { ConfUser } from '@lib/types';
+import { ConfUser, SwiggEvent } from '@lib/types';
 import validator from 'validator';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
@@ -34,7 +34,7 @@ type ErrorResponse = {
 
 export default async function register(
   req: NextApiRequest,
-  res: NextApiResponse<ConfUser | ErrorResponse>
+  res: NextApiResponse<SwiggEvent | ErrorResponse>
 ) {
   if (req.method !== 'POST') {
     return res.status(501).json({
@@ -47,14 +47,7 @@ export default async function register(
 
   const userAddress: string = ((req.body.email as string) || '').trim().toLowerCase();
   const token: string = req.body.token as string;
-  if (!validator.isEmail(userAddress) && !validator.isEthereumAddress(userAddress)) {
-    return res.status(400).json({
-      error: {
-        code: 'bad_address_or_email',
-        message: 'Invalid email or wallet address'
-      }
-    });
-  }
+
 
   if (IS_CAPTCHA_ENABLED) {
     const isCaptchaValid = await validateCaptchaResult(token);
@@ -69,34 +62,18 @@ export default async function register(
     }
   }
 
-  let id = nanoid();
-  let ticketNumber: number;
-  let createdAt: number = Date.now();
+  let eventId = nanoid();
+  let capacity: number;
+  let date = new Date(Date.now() + ms('1 days'));
   let statusCode = 200;
   let name: string | null | undefined = undefined;
   let username: string | null | undefined = undefined;
 
-  id = emailToId(userAddress);
-  const existingTicketNumberString = await getTicketNumberByUserId(id);
-
-  if (existingTicketNumberString) {
-    const user = await getUserById(id);
-    name = user.name;
-    username = user.username;
-    ticketNumber = parseInt(existingTicketNumberString, 10);
-    createdAt = user.createdAt!;
-    statusCode = 200;
-  } else {
-    const newUser = await createUser(id, userAddress);
-    ticketNumber = newUser.ticketNumber!;
-    createdAt = newUser.createdAt!;
-    statusCode = 201;
-  }
-
+ 
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize(COOKIE, id, {
+    cookie.serialize(COOKIE, eventId, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
@@ -106,11 +83,7 @@ export default async function register(
   );
 
   return res.status(statusCode).json({
-    id,
-    userAddress,
-    ticketNumber,
-    createdAt,
+    eventId,
     name,
-    username
   });
 }

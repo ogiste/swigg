@@ -22,6 +22,7 @@ import LoadingDots from './loading-dots';
 import { register } from '@lib/user-api';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import Captcha, { useCaptcha } from './captcha';
+import validator from 'validator';
 
 type FormState = 'default' | 'loading' | 'error';
 
@@ -71,6 +72,21 @@ export default function ConfEntry({ onRegister }: { onRegister: () => void }) {
       try {
         setFormState('loading');
 
+        const isEthAddress = validator.isEthereumAddress(emailInput);
+
+        // Check if userAddress is a valid email address
+        const isEmailValid = validator.isEmail(emailInput);
+     
+        if (!isEthAddress && !isEmailValid) {
+          setErrorMsg('Please enter a valid ETH address or email');
+          setFormState('error');
+          return;
+        }
+
+        if(isEthAddress){
+          console.log('handle connect/sign to wallet logic to prove ownership')
+        }
+
         if (isCaptchaEnabled) {
           return executeCaptcha();
         }
@@ -117,7 +133,7 @@ export default function ConfEntry({ onRegister }: { onRegister: () => void }) {
               <input
                 className={styles.input}
                 autoComplete="off"
-                type="email"
+                type="text"
                 id="email-input-field"
                 value={emailInput}
                 onChange={e => setEmailInput(e.target.value)}

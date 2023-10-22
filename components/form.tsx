@@ -25,6 +25,7 @@ import styles from './form.module.css';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import { register } from '@lib/user-api';
 import Captcha, { useCaptcha } from './captcha';
+import validator from 'validator';
 
 type FormState = 'default' | 'loading' | 'error';
 
@@ -33,7 +34,7 @@ type Props = {
 };
 
 export default function Form({ sharePage }: Props) {
-  const [email, setEmail] = useState('');
+  const [userAddress, setUserAddress] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [errorTryAgain, setErrorTryAgain] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -49,7 +50,7 @@ export default function Form({ sharePage }: Props) {
 
   const handleRegister = useCallback(
     (token?: string) => {
-      register(email, token)
+      register(userAddress, token)
         .then(async res => {
           if (!res.ok) {
             throw new FormError(res);
@@ -96,7 +97,7 @@ export default function Form({ sharePage }: Props) {
           setFormState('error');
         });
     },
-    [email, router, setPageState, setUserData, sharePage]
+    [userAddress, router, setPageState, setUserData, sharePage]
   );
 
   const onSubmit = useCallback(
@@ -105,6 +106,21 @@ export default function Form({ sharePage }: Props) {
 
       if (formState === 'default') {
         setFormState('loading');
+
+        const isEthAddress = validator.isEthereumAddress(userAddress);
+
+        // Check if userAddress is a valid email address
+        const isEmailValid = validator.isEmail(userAddress);
+     
+        if (!isEthAddress && !isEmailValid) {
+          setErrorMsg('Please enter a valid ETH address or email');
+          setFormState('error');
+          return;
+        }
+
+        if(isEthAddress){
+          console.log('handle connect/sign to wallet logic to prove ownership')
+        }
 
         if (isCaptchaEnabled) {
           return executeCaptcha();
@@ -129,7 +145,7 @@ export default function Form({ sharePage }: Props) {
     [resetCaptcha]
   );
 
-  useEmailQueryParam('email', setEmail);
+  useEmailQueryParam('email', setUserAddress);
 
   return formState === 'error' ? (
     <div
@@ -170,14 +186,14 @@ export default function Form({ sharePage }: Props) {
           <input
             className={styles.input}
             autoComplete="off"
-            type="email"
+            type="text"
             id="email-input-field"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            value={userAddress}
+            onChange={e => setUserAddress(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder="Enter email to register free"
-            aria-label="Your email address"
+            placeholder="Enter email or wallet address to register"
+            aria-label="Your email address / wallet address"
             required
           />
         </label>
