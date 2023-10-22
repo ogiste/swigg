@@ -52,22 +52,22 @@ export const NAVIGATION = [
   //   name: '100ms Stage',
   //   route: '/stage/m'
   // },
-  {
-    name: 'Schedule',
-    route: '/schedule'
-  },
-  {
-    name: 'Events',
-    route: '/speakers'
-  },
-  {
-    name: 'Expo',
-    route: '/expo'
-  },
-  {
-    name: 'Upcoming Festivals',
-    route: '/jobs'
-  }
+  // {
+  //   name: 'Schedule',
+  //   route: '/schedule'
+  // },
+  // {
+  //   name: 'Events',
+  //   route: '/speakers'
+  // },
+  // {
+  //   name: 'Expo',
+  //   route: '/expo'
+  // },
+  // {
+  //   name: 'Upcoming Festivals',
+  //   route: '/jobs'
+  // }
 ];
 
 export type TicketGenerationState = 'default' | 'loading';
