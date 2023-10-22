@@ -1,0 +1,11 @@
+{
+  "name": "Swigg Events",
+  "description": "Events and community experience platform",
+  "previewImage": "https://www.datocms-assets.com/105023/1697964286-homepreview.png",
+  "datocmsProjectId": "105023",
+  "deploymentType": "vercel",
+  "vercelIntegrationIds": ["oac_7yeSwUoVR5no3SlA9WM6oR7l"],
+  "buildCommand": "npm run build",
+  "datocmsApiTokenEnvName": "DATOCMS_READ_ONLY_API_TOKEN",
+  "livePreviewUrl": "swigg.dreamscapemastermind.com"
+}
