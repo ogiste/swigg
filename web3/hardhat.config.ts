@@ -14,7 +14,7 @@ const config: HardhatUserConfig = {
       url: "https://optimism-goerli.publicnode.com", // Replace with Optimism testnet RPC URL
       accounts: [privKey], // Replace with your private key
       gasPrice: 0, // Optimism currently uses a gas price of 0
-      ovm: true // This sets the network as using the OVM and ensure contract will be compiled against that
+      // ovm: true // This sets the network as using the OVM and ensure contract will be compiled against that
     },
   },
 };

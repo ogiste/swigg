@@ -32,7 +32,7 @@
     "incremental": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules", "web3"
   ],
   "include": [
     "next-env.d.ts",
